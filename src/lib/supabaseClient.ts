@@ -1,7 +1,8 @@
 // src/lib/supabaseClient.ts
 
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
-const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL") ?? "";
+const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY") ?? "";
+
 
 console.log("SUPABASE_URL en runtime:", SUPABASE_URL);
 console.log("SUPABASE_ANON_KEY (cortada):", SUPABASE_KEY?.slice(0, 10));
