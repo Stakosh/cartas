@@ -1,16 +1,11 @@
-import { Application, Router } from "./deps.ts";
-import * as dotenv from "./deps.ts";
+import { Application } from "./deps.ts";
+import router from "./src/routes/messages.ts";
 
-//carga las variables desde .env
-await dotenv.dotenv.load(); // así funciona si usas `export * as dotenv`
+// Solo para local:
+// import { load } from "./deps.ts";
+// await load();
 
 const app = new Application();
-const router = new Router();
-
-router.get("/", (ctx) => {
-  ctx.response.body = "¡Hola desde Cartitas! 💌";
-});
-
 app.use(router.routes());
 app.use(router.allowedMethods());
 

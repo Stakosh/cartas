@@ -21,3 +21,7 @@ Actualmente se encuentra en desarrollo. Ya se estableció la conexión con Supab
 
 ---
 Este proyecto es parte de mi proceso de aprendizaje y evolución como desarrolladora. ¡Gracias por pasar a mirar! 🌟
+
+
+PARA EJECUTAR 
+deno run --allow-net --allow-read --allow-env main.ts
