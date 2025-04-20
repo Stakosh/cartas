@@ -1,9 +1,11 @@
 // src/lib/supabaseClient.ts
-import { dotenv } from "../../deps.ts";
-await dotenv.load();
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY");
 
-const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
-const SUPABASE_KEY = Deno.env.get("SUPABASE_ANON_KEY")!;
+if (!SUPABASE_URL || !SUPABASE_KEY) {
+  console.error("❌ SUPABASE_URL o SUPABASE_ANON_KEY no están definidos.");
+  throw new Error("Faltan variables de entorno necesarias para conectar con Supabase.");
+}
 
 export async function insertMessage(data: Record<string, any>) {
   const response = await fetch(`${SUPABASE_URL}/rest/v1/messages`, {

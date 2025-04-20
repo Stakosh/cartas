@@ -1,8 +1,22 @@
 import { Router } from "../../deps.ts";
 import { postMessage } from "../controllers/messageController.ts";
 import { insertMessage } from "../lib/supabaseClient.ts";
+import { serveFile } from "https://deno.land/std@0.204.0/http/file_server.ts";
 
 const router = new Router();
+
+// Ruta para ver el formulario (index.html)
+router.get("/", async (ctx) => {
+  const file = await serveFile(
+    new Request(ctx.request.url.href),
+    `${Deno.cwd()}/src/views/index.html`
+  );
+
+  ctx.response.status = file.status;
+  ctx.response.headers = file.headers;
+  ctx.response.body = file.body;
+});
+
 
 // Ruta API (JSON)
 router.post("/api/messages", postMessage);

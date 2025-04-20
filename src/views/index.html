@@ -1,55 +1,69 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Déjame una carta 💌</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartitas 💌</title>
   <style>
     body {
       font-family: sans-serif;
-      background: #fefefe;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff0f5;
+      border-radius: 8px;
     }
-    textarea {
+    h1 {
+      text-align: center;
+      color: #d6336c;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, textarea {
       width: 100%;
-      max-width: 500px;
-      height: 200px;
-      padding: 15px;
-      font-size: 16px;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
     }
     button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.2rem;
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #b52a57;
     }
   </style>
 </head>
 <body>
-  <h1>Escríbeme una carta 💌</h1>
-  <textarea id="message" placeholder="Tu mensaje..."></textarea>
-  <button onclick="sendMessage()">Enviar</button>
+  <h1>Escribe tu cartita 💌</h1>
+  <form action="/enviar" method="POST">
+    <label for="author">Autor:</label>
+    <input type="text" id="author" name="author" required />
 
-  <script>
-    async function sendMessage() {
-      const content = document.getElementById("message").value.trim();
-      if (!content) return alert("El mensaje está vacío!");
+    <label for="place">Lugar (opcional):</label>
+    <input type="text" id="place" name="place" />
 
-      const res = await fetch("https://<tu-backend>.deta.dev/api/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content })
-      });
+    <label for="date">Fecha:</label>
+    <input type="date" id="date" name="date" required />
 
-      if (res.ok) {
-        alert("Gracias por tu mensaje ❤️");
-        document.getElementById("message").value = "";
-      } else {
-        alert("Ocurrió un error 😢");
-      }
-    }
-  </script>
+    <label for="content">Contenido:</label>
+    <textarea id="content" name="content" rows="6" required></textarea>
+
+    <label for="signature">Firma (opcional):</label>
+    <input type="text" id="signature" name="signature" />
+
+    <button type="submit">Enviar 💌</button>
+  </form>
 </body>
 </html>
