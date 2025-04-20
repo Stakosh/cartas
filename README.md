@@ -1,6 +1,6 @@
 # Cartitas 💌
 
-Este es un proyecto personal creado con el propósito de aprender y practicar el uso de herramientas modernas para el desarrollo web.
+Este es un proyecto personal creado con el propósito de aprender y practicar TS y el uso de herramientas modernas para el desarrollo web.
 
 ## 📌 Objetivo del proyecto
 
