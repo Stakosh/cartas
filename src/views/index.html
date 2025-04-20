@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Déjame una carta 💌</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fefefe;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    textarea {
+      width: 100%;
+      max-width: 500px;
+      height: 200px;
+      padding: 15px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Escríbeme una carta 💌</h1>
+  <textarea id="message" placeholder="Tu mensaje..."></textarea>
+  <button onclick="sendMessage()">Enviar</button>
+
+  <script>
+    async function sendMessage() {
+      const content = document.getElementById("message").value.trim();
+      if (!content) return alert("El mensaje está vacío!");
+
+      const res = await fetch("https://<tu-backend>.deta.dev/api/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content })
+      });
+
+      if (res.ok) {
+        alert("Gracias por tu mensaje ❤️");
+        document.getElementById("message").value = "";
+      } else {
+        alert("Ocurrió un error 😢");
+      }
+    }
+  </script>
+</body>
+</html>

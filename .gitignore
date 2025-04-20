@@ -1,0 +1,21 @@
+# Archivos de entorno sensibles
+.env
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Cache del editor
+.vscode/
+.idea/
+
+# Archivos temporales
+*.tmp
+*.swp
+
+# Directorios de pruebas (si usas alguno)
+__tests__/
+coverage/
