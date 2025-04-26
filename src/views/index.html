@@ -5,65 +5,356 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cartitas 💌</title>
   <style>
-    body {
-      font-family: sans-serif;
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #fff0f5;
-      border-radius: 8px;
+    :root {
+      --primary: #d6336c;
+      --primary-dark: #b52a57;
+      --primary-light: #fff0f5;
+      --accent: #ff8ab0;
+      --text: #333;
+      --text-light: #666;
+      --shadow: rgba(0, 0, 0, 0.1);
     }
+    
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-image: radial-gradient(var(--accent) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    
+    .container {
+      max-width: 600px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+    }
+    
     h1 {
       text-align: center;
-      color: #d6336c;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      font-size: 2rem;
     }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    
     label {
       display: block;
-      margin-top: 1rem;
-      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.95rem;
     }
-    input, textarea {
+    
+    input, textarea, select {
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      border: 2px solid #eaeaea;
+      font-size: 1rem;
+      color: var(--text);
+      background-color: #fcfcfc;
     }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(214, 51, 108, 0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    
+    .date-options {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    
+    .radio-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .radio-container input[type="radio"] {
+      width: auto;
+      margin: 0;
+    }
+    
+    .custom-date {
+      display: none;
+    }
+    
+    .custom-date.active {
+      display: block;
+      margin-top: 0.5rem;
+    }
+    
     button {
-      margin-top: 1.5rem;
-      padding: 0.8rem 1.2rem;
-      background-color: #d6336c;
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background-color: var(--primary);
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
-      width: 100%;
       font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      box-shadow: 0 4px 10px rgba(214, 51, 108, 0.2);
     }
+    
     button:hover {
-      background-color: #b52a57;
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(214, 51, 108, 0.3);
+    }
+    
+    .emoji {
+      font-size: 1.2rem;
+    }
+    
+    /* Estilo para página de confirmación */
+    .success-container {
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .success-container h1 {
+      margin-bottom: 0.5rem;
+    }
+    
+    .checkmark {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 2;
+      stroke: #fff;
+      stroke-miterlimit: 10;
+      margin: 0 auto 1.5rem;
+      box-shadow: 0 0 0 var(--primary);
+      animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    }
+    
+    .checkmark__circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 2;
+      stroke-miterlimit: 10;
+      stroke: var(--primary);
+      fill: none;
+      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+    
+    .checkmark__check {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+    
+    @keyframes stroke {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+    
+    @keyframes scale {
+      0%, 100% {
+        transform: none;
+      }
+      50% {
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+    
+    @keyframes fill {
+      100% {
+        box-shadow: 0 0 0 30px rgba(214, 51, 108, 0.1);
+      }
+    }
+    
+    .success-message {
+      color: var(--text);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .btn-secondary {
+      background-color: #fff;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      box-shadow: none;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #fff;
+      color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(214, 51, 108, 0.1);
+    }
+    
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <h1>Escribe tu cartita 💌</h1>
-  <form action="/enviar" method="POST">
-    <label for="author">Autor:</label>
-    <input type="text" id="author" name="author" required />
-
-    <label for="place">Lugar (opcional):</label>
-    <input type="text" id="place" name="place" />
-
-    <label for="date">Fecha:</label>
-    <input type="date" id="date" name="date" required />
-
-    <label for="content">Contenido:</label>
-    <textarea id="content" name="content" rows="6" required></textarea>
-
-    <label for="signature">Firma (opcional):</label>
-    <input type="text" id="signature" name="signature" />
-
-    <button type="submit">Enviar 💌</button>
-  </form>
+  <div id="formContainer" class="container">
+    <h1>Escribe tu cartita <span class="emoji">💌</span></h1>
+    <form id="letterForm" action="#" method="POST">
+      <div class="form-group">
+        <label for="author">Autor:</label>
+        <input type="text" id="author" name="author" required placeholder="Tu nombre" />
+      </div>
+      
+      <div class="form-group">
+        <label for="place">Lugar (opcional):</label>
+        <input type="text" id="place" name="place" placeholder="ej. Santiago" />
+      </div>
+      
+      <div class="form-group">
+        <label>Fecha:</label>
+        <div class="date-options">
+          <label class="radio-container">
+            <input type="radio" name="dateOption" value="current" checked />
+            Fecha actual
+          </label>
+          <label class="radio-container">
+            <input type="radio" name="dateOption" value="custom" />
+            Personalizada
+          </label>
+        </div>
+        <div id="customDate" class="custom-date">
+          <input type="date" id="date" name="date" />
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="content">Contenido:</label>
+        <textarea id="content" name="content" rows="6" required placeholder="Escribe tu mensaje aquí..."></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="signature">Firma (opcional):</label>
+        <input type="text" id="signature" name="signature" placeholder="Tu firma" />
+      </div>
+      
+      <button type="submit">Enviar <span class="emoji">💌</span></button>
+    </form>
+  </div>
+  
+  <div id="successContainer" class="container hidden">
+    <div class="success-container">
+      <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+      </svg>
+      <h1>¡Carta enviada con éxito!</h1>
+      <p class="success-message">Tu mensaje ha sido enviado correctamente <span class="emoji">💌</span></p>
+      <button id="writeAnother" class="btn-secondary">Escribir otra carta</button>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Manejo de opciones de fecha
+      const dateOptions = document.querySelectorAll('input[name="dateOption"]');
+      const customDateDiv = document.getElementById('customDate');
+      const dateInput = document.getElementById('date');
+      
+      // Establecer fecha actual por defecto
+      const today = new Date();
+      const formattedDate = today.toISOString().substring(0, 10);
+      dateInput.value = formattedDate;
+      
+      // Cambiar entre fecha actual y personalizada
+      dateOptions.forEach(function(option) {
+        option.addEventListener('change', function() {
+          if (this.value === 'custom') {
+            customDateDiv.classList.add('active');
+          } else {
+            customDateDiv.classList.remove('active');
+            dateInput.value = formattedDate;
+          }
+        });
+      });
+      
+      // Manejo del envío del formulario
+      const letterForm = document.getElementById('letterForm');
+      const formContainer = document.getElementById('formContainer');
+      const successContainer = document.getElementById('successContainer');
+      
+      letterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Aquí normalmente enviarías los datos al servidor
+        // Simulamos un envío exitoso
+        setTimeout(function() {
+          formContainer.classList.add('hidden');
+          successContainer.classList.remove('hidden');
+        }, 600);
+      });
+      
+      // Botón para escribir otra carta
+      const writeAnotherBtn = document.getElementById('writeAnother');
+      writeAnotherBtn.addEventListener('click', function() {
+        // Resetear el formulario
+        letterForm.reset();
+        
+        // Establecer fecha actual de nuevo
+        dateInput.value = formattedDate;
+        dateOptions[0].checked = true;
+        customDateDiv.classList.remove('active');
+        
+        // Mostrar el formulario nuevamente
+        successContainer.classList.add('hidden');
+        formContainer.classList.remove('hidden');
+      });
+    });
+  </script>
 </body>
 </html>
