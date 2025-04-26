@@ -14,12 +14,12 @@
       --text-light: #666;
       --shadow: rgba(0, 0, 0, 0.1);
     }
-    
+   
     * {
       box-sizing: border-box;
       transition: all 0.3s ease;
     }
-    
+   
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f9f9f9;
@@ -34,7 +34,7 @@
       background-image: radial-gradient(var(--accent) 1px, transparent 1px);
       background-size: 30px 30px;
     }
-    
+   
     .container {
       max-width: 600px;
       width: 100%;
@@ -46,7 +46,7 @@
       position: relative;
       overflow: hidden;
     }
-    
+   
     .container::before {
       content: '';
       position: absolute;
@@ -56,7 +56,7 @@
       height: 8px;
       background: linear-gradient(to right, var(--primary), var(--accent));
     }
-    
+   
     h1 {
       text-align: center;
       color: var(--primary);
@@ -64,12 +64,12 @@
       font-weight: 700;
       font-size: 2rem;
     }
-    
+   
     .form-group {
       margin-bottom: 1.5rem;
       position: relative;
     }
-    
+   
     label {
       display: block;
       margin-bottom: 0.5rem;
@@ -77,7 +77,7 @@
       color: var(--text);
       font-size: 0.95rem;
     }
-    
+   
     input, textarea, select {
       width: 100%;
       padding: 0.8rem 1rem;
@@ -87,46 +87,46 @@
       color: var(--text);
       background-color: #fcfcfc;
     }
-    
+   
     input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: var(--accent);
       box-shadow: 0 0 0 3px rgba(214, 51, 108, 0.1);
     }
-    
+   
     textarea {
       resize: vertical;
       min-height: 120px;
     }
-    
+   
     .date-options {
       display: flex;
       gap: 1rem;
       align-items: center;
       margin-bottom: 0.5rem;
     }
-    
+   
     .radio-container {
       display: flex;
       align-items: center;
       gap: 0.5rem;
       cursor: pointer;
     }
-    
+   
     .radio-container input[type="radio"] {
       width: auto;
       margin: 0;
     }
-    
+   
     .custom-date {
       display: none;
     }
-    
+   
     .custom-date.active {
       display: block;
       margin-top: 0.5rem;
     }
-    
+   
     button {
       width: 100%;
       padding: 1rem 1.5rem;
@@ -144,27 +144,27 @@
       margin-top: 1rem;
       box-shadow: 0 4px 10px rgba(214, 51, 108, 0.2);
     }
-    
+   
     button:hover {
       background-color: var(--primary-dark);
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(214, 51, 108, 0.3);
     }
-    
+   
     .emoji {
       font-size: 1.2rem;
     }
-    
+   
     /* Estilo para página de confirmación */
     .success-container {
       text-align: center;
       padding: 2rem;
     }
-    
+   
     .success-container h1 {
       margin-bottom: 0.5rem;
     }
-    
+   
     .checkmark {
       width: 80px;
       height: 80px;
@@ -177,7 +177,7 @@
       box-shadow: 0 0 0 var(--primary);
       animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
     }
-    
+   
     .checkmark__circle {
       stroke-dasharray: 166;
       stroke-dashoffset: 166;
@@ -187,20 +187,20 @@
       fill: none;
       animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
     }
-    
+   
     .checkmark__check {
       transform-origin: 50% 50%;
       stroke-dasharray: 48;
       stroke-dashoffset: 48;
       animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
     }
-    
+   
     @keyframes stroke {
       100% {
         stroke-dashoffset: 0;
       }
     }
-    
+   
     @keyframes scale {
       0%, 100% {
         transform: none;
@@ -209,26 +209,26 @@
         transform: scale3d(1.1, 1.1, 1);
       }
     }
-    
+   
     @keyframes fill {
       100% {
         box-shadow: 0 0 0 30px rgba(214, 51, 108, 0.1);
       }
     }
-    
+   
     .success-message {
       color: var(--text);
       font-size: 1.1rem;
       margin-bottom: 2rem;
     }
-    
+   
     .btn-secondary {
       background-color: #fff;
       color: var(--primary);
       border: 2px solid var(--primary);
       box-shadow: none;
     }
-    
+   
     .btn-secondary:hover {
       background-color: #fff;
       color: var(--primary-dark);
@@ -236,26 +236,116 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(214, 51, 108, 0.1);
     }
-    
+   
     .hidden {
       display: none;
+    }
+
+    /* Estilos para la vista previa de la carta */
+    #previewContainer {
+      display: none;
+      background-color: #fff9fb;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 2rem;
+      box-shadow: 0 5px 15px rgba(214, 51, 108, 0.15);
+      position: relative;
+    }
+
+    #previewContainer.active {
+      display: block;
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px dashed var(--accent);
+      padding-bottom: 0.5rem;
+    }
+
+    .preview-date {
+      color: var(--text-light);
+      font-style: italic;
+    }
+
+    .preview-place {
+      font-weight: 500;
+    }
+
+    .preview-content {
+      white-space: pre-wrap;
+      line-height: 1.8;
+      padding: 1rem 0;
+      color: var(--text);
+      font-size: 1.05rem;
+    }
+
+    .preview-signature {
+      text-align: right;
+      font-style: italic;
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    .actions-container {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .actions-container button {
+      flex: 1;
+    }
+
+    .btn-preview {
+      background-color: var(--accent);
+    }
+
+    .btn-preview:hover {
+      background-color: #ff6a9a;
+    }
+
+    .btn-edit {
+      background-color: #6c757d;
+    }
+
+    .btn-edit:hover {
+      background-color: #5a6268;
+    }
+
+    .letter-paper {
+      background-image: linear-gradient(#fff9fb 1.1rem, #f0d6e0 1.2rem);
+      background-size: 100% 1.2rem;
+      line-height: 1.2rem;
+      position: relative;
+    }
+
+    .letter-paper::before {
+      content: '';
+      position: absolute;
+      left: -0.5rem;
+      height: 100%;
+      width: 1px;
+      background-color: var(--primary);
     }
   </style>
 </head>
 <body>
   <div id="formContainer" class="container">
     <h1>Escribe tu cartita <span class="emoji">💌</span></h1>
-    <form id="letterForm" action="#" method="POST">
+    <form id="letterForm" action="https://example.com/submit-letter" method="POST">
       <div class="form-group">
         <label for="author">Autor:</label>
         <input type="text" id="author" name="author" required placeholder="Tu nombre" />
       </div>
-      
+     
       <div class="form-group">
         <label for="place">Lugar (opcional):</label>
         <input type="text" id="place" name="place" placeholder="ej. Santiago" />
       </div>
-      
+     
       <div class="form-group">
         <label>Fecha:</label>
         <div class="date-options">
@@ -272,21 +362,36 @@
           <input type="date" id="date" name="date" />
         </div>
       </div>
-      
+     
       <div class="form-group">
         <label for="content">Contenido:</label>
         <textarea id="content" name="content" rows="6" required placeholder="Escribe tu mensaje aquí..."></textarea>
       </div>
-      
+     
       <div class="form-group">
         <label for="signature">Firma (opcional):</label>
         <input type="text" id="signature" name="signature" placeholder="Tu firma" />
       </div>
-      
-      <button type="submit">Enviar <span class="emoji">💌</span></button>
+     
+      <div class="actions-container">
+        <button type="button" id="previewBtn" class="btn-preview">Vista previa <span class="emoji">👁️</span></button>
+        <button type="submit" id="submitBtn">Enviar <span class="emoji">💌</span></button>
+      </div>
     </form>
+
+    <!-- Contenedor de vista previa -->
+    <div id="previewContainer">
+      <h1>Vista previa <span class="emoji">👁️</span></h1>
+      <div class="preview-header">
+        <div class="preview-place" id="previewPlace"></div>
+        <div class="preview-date" id="previewDate"></div>
+      </div>
+      <div class="preview-content letter-paper" id="previewContent"></div>
+      <div class="preview-signature" id="previewSignature"></div>
+      <button type="button" id="editBtn" class="btn-edit">Editar carta <span class="emoji">✏️</span></button>
+    </div>
   </div>
-  
+ 
   <div id="successContainer" class="container hidden">
     <div class="success-container">
       <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
@@ -298,19 +403,26 @@
       <button id="writeAnother" class="btn-secondary">Escribir otra carta</button>
     </div>
   </div>
-  
+ 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Manejo de opciones de fecha
       const dateOptions = document.querySelectorAll('input[name="dateOption"]');
       const customDateDiv = document.getElementById('customDate');
       const dateInput = document.getElementById('date');
-      
+     
       // Establecer fecha actual por defecto
       const today = new Date();
       const formattedDate = today.toISOString().substring(0, 10);
       dateInput.value = formattedDate;
-      
+     
+      // Formatear fecha para mostrar en vista previa
+      function formatDateForDisplay(dateString) {
+        const date = new Date(dateString);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString('es-ES', options);
+      }
+     
       // Cambiar entre fecha actual y personalizada
       dateOptions.forEach(function(option) {
         option.addEventListener('change', function() {
@@ -322,34 +434,107 @@
           }
         });
       });
-      
+     
+      // Referencias para vista previa
+      const previewBtn = document.getElementById('previewBtn');
+      const editBtn = document.getElementById('editBtn');
+      const previewContainer = document.getElementById('previewContainer');
+      const previewPlace = document.getElementById('previewPlace');
+      const previewDate = document.getElementById('previewDate');
+      const previewContent = document.getElementById('previewContent');
+      const previewSignature = document.getElementById('previewSignature');
+      const formFields = document.getElementById('letterForm');
+     
+      // Botón de vista previa
+      previewBtn.addEventListener('click', function() {
+        // Obtener valores del formulario
+        const author = document.getElementById('author').value;
+        const place = document.getElementById('place').value;
+        const content = document.getElementById('content').value;
+        const signature = document.getElementById('signature').value || author;
+        const selectedDate = document.querySelector('input[name="dateOption"]:checked').value === 'current' 
+          ? new Date() 
+          : new Date(dateInput.value);
+        
+        // Validar campos requeridos
+        if (!author || !content) {
+          alert('Por favor completa los campos obligatorios (Autor y Contenido)');
+          return;
+        }
+        
+        // Actualizar la vista previa
+        previewPlace.textContent = place ? place : '';
+        previewDate.textContent = formatDateForDisplay(selectedDate);
+        previewContent.textContent = content;
+        previewSignature.textContent = signature;
+        
+        // Mostrar vista previa y ocultar formulario
+        formFields.style.display = 'none';
+        previewContainer.classList.add('active');
+      });
+     
+      // Botón de editar
+      editBtn.addEventListener('click', function() {
+        // Ocultar vista previa y mostrar formulario
+        previewContainer.classList.remove('active');
+        formFields.style.display = 'block';
+      });
+     
       // Manejo del envío del formulario
       const letterForm = document.getElementById('letterForm');
       const formContainer = document.getElementById('formContainer');
       const successContainer = document.getElementById('successContainer');
-      
+     
       letterForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Aquí normalmente enviarías los datos al servidor
-        // Simulamos un envío exitoso
-        setTimeout(function() {
+        // Crear objeto FormData para el envío
+        const formData = new FormData(letterForm);
+        
+        // Añadir la fecha formateada según la opción seleccionada
+        if (document.querySelector('input[name="dateOption"]:checked').value === 'current') {
+          formData.set('date', formattedDate);
+        }
+        
+        // Realizar el envío usando fetch API
+        fetch(letterForm.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => {
+          // Para fines de demostración, simularemos una respuesta exitosa
+          // En un entorno real, verificaríamos: if (!response.ok) throw new Error('Error en el envío');
+          return { success: true };
+        })
+        .then(data => {
+          // Mostrar pantalla de éxito
           formContainer.classList.add('hidden');
           successContainer.classList.remove('hidden');
-        }, 600);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Hubo un error al enviar tu carta. Por favor intenta nuevamente.');
+        });
       });
-      
+     
       // Botón para escribir otra carta
       const writeAnotherBtn = document.getElementById('writeAnother');
       writeAnotherBtn.addEventListener('click', function() {
         // Resetear el formulario
         letterForm.reset();
-        
+       
         // Establecer fecha actual de nuevo
         dateInput.value = formattedDate;
         dateOptions[0].checked = true;
         customDateDiv.classList.remove('active');
         
+        // Asegurar que el formulario está visible (no la vista previa)
+        previewContainer.classList.remove('active');
+        formFields.style.display = 'block';
+       
         // Mostrar el formulario nuevamente
         successContainer.classList.add('hidden');
         formContainer.classList.remove('hidden');
