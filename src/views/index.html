@@ -150,9 +150,14 @@
         formView.appendChild(loadingMessage);
 
         const formData = new FormData(cartaForm);
-        fetch('/enviar', {
+        const jsonData = Object.fromEntries(formData.entries());
+
+        fetch('/api/messages', {
           method: 'POST',
-          body: formData
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(jsonData),
         })
         .then(response => {
           formView.removeChild(loadingMessage);
@@ -181,12 +186,11 @@
     });
   </script>
 </head>
-
 <body>
   <div id="form-view" class="container">
     <div class="decoration"></div>
     <h1>Escribe tu cartita <span class="emoji">💌</span></h1>
-    <form id="carta-form" action="/enviar" method="POST">
+    <form id="carta-form" action="/api/messages" method="POST">
       <div class="form-group">
         <label for="author">Autor:</label>
         <input type="text" id="author" name="author" required>
@@ -210,7 +214,6 @@
       <button type="submit">Enviar 💌</button>
     </form>
   </div>
-
   <div id="confirmation-view" class="container confirmation-container hidden">
     <div class="decoration"></div>
     <div class="success-icon">✓</div>
