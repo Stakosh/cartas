@@ -2,7 +2,7 @@
 
 ## Español
 
-**Cartitas** es una aplicación web desplegada en Deno Deploy que permite a las personas dejarle cartas (mensajes) de forma segura y privada. Solo la usuaria (Javiera Soto) puede leer los mensajes.
+**Cartitas** es una aplicación web desplegada en Deno Deploy que permite a las personas dejarle cartas (mensajes). 
 
 ### Demo en producción
 
@@ -17,7 +17,6 @@
 - **Lugar**
 - **Contenido** del mensaje
 
-El objetivo es que solo Javiera Soto pueda consultar y leer las cartas.
 
 ### Características
 
@@ -96,7 +95,7 @@ Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE)
 
 ## English
 
-**Little Letters** is a web application deployed on Deno Deploy that allows anyone to send private letters (messages) securely. Only the owner (Javiera Soto) can read the messages.
+**Little Letters** is a web application deployed on Deno Deploy that allows anyone to send private letters 
 
 ### Live Demo
 
@@ -176,7 +175,7 @@ SUPABASE_ANON_KEY=<your_supabase_anon_key>
 
 1. Fill in Author, Date, Location, and Content in the frontend form.  
 2. Click **Send** to store the letter in Supabase.  
-3. Only Javiera Soto can retrieve letters via the protected endpoint.
+
 
 ### Contributing
 
