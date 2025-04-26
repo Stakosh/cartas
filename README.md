@@ -16,6 +16,7 @@ La idea es que **solo el creador de la página pueda leerlas**, fomentando una e
 - **HTML**: Usado para la interfaz del formulario.
 - **Git & GitHub**: Para control de versiones.
 - **Deno Deploy**: Para desplegar el backend (recomendado).
+- **Netlify (próximamente)**: Para desplegar el frontend.
 
 ## 🚀 Estado del proyecto
 
