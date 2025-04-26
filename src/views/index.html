@@ -5,65 +5,443 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cartitas 💌</title>
   <style>
-    body {
-      font-family: sans-serif;
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #fff0f5;
-      border-radius: 8px;
+    :root {
+      --primary: #d6336c;
+      --primary-light: #ff83a7;
+      --primary-dark: #b52a57;
+      --background: #fff0f5;
+      --text: #333;
+      --paper: #fffaf0;
     }
+    
+    * {
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25,25 L75,25 L75,75 L25,75 Z' fill='none' stroke='%23ffb6c1' stroke-width='0.5'/%3E%3C/svg%3E");
+    }
+    
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(214, 51, 108, 0.15);
+      background: #fff;
+      position: relative;
+    }
+    
+    .envelope-decoration {
+      position: absolute;
+      top: -20px;
+      right: -15px;
+      width: 80px;
+      height: 80px;
+      background-color: var(--primary-light);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(214, 51, 108, 0.3);
+      transform: rotate(15deg);
+      z-index: 1;
+    }
+    
+    .envelope-decoration::before {
+      content: "💌";
+      font-size: 2.5rem;
+    }
+    
     h1 {
       text-align: center;
-      color: #d6336c;
+      color: var(--primary);
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(214, 51, 108, 0.1);
     }
+    
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    
     label {
       display: block;
-      margin-top: 1rem;
-      font-weight: bold;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--primary-dark);
     }
+    
     input, textarea {
       width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.3rem;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 2px solid #f0f0f0;
+      font-size: 1rem;
+      background-color: #fdfdfd;
     }
+    
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(214, 51, 108, 0.1);
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
     button {
       margin-top: 1.5rem;
-      padding: 0.8rem 1.2rem;
-      background-color: #d6336c;
+      padding: 0.9rem 1.2rem;
+      background-color: var(--primary);
       color: white;
       border: none;
-      border-radius: 4px;
+      border-radius: 8px;
       cursor: pointer;
       width: 100%;
-      font-size: 1rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(214, 51, 108, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
     }
+    
     button:hover {
-      background-color: #b52a57;
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(214, 51, 108, 0.3);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    .letter-preview {
+      background-color: var(--paper);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: none;
+      position: relative;
+      border: 1px solid #e6e6e6;
+    }
+    
+    .letter-preview::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom right, rgba(255,255,255,0.4), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+    
+    .letter-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      font-style: italic;
+      color: #777;
+    }
+    
+    .letter-content {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    
+    .letter-signature {
+      text-align: right;
+      font-style: italic;
+      font-weight: 600;
+    }
+    
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      display: none;
+    }
+    
+    .success-message {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-top: 1rem;
+      display: none;
+    }
+    
+    .heart-btn {
+      background: none;
+      border: none;
+      color: #ccc;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0;
+      margin: 0;
+      transition: transform 0.3s ease;
+    }
+    
+    .heart-btn.active {
+      color: var(--primary);
+      transform: scale(1.2);
+    }
+    
+    .hearts-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+      
+      h1 {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Escribe tu cartita 💌</h1>
-  <form action="/enviar" method="POST">
-    <label for="author">Autor:</label>
-    <input type="text" id="author" name="author" required />
+  <div class="container">
+    <div class="envelope-decoration"></div>
+    <h1>✨ Escribe tu cartita 💌</h1>
+    
+    <form id="letterForm">
+      <div class="form-group">
+        <label for="author">Autor:</label>
+        <input type="text" id="author" name="author" required placeholder="Tu nombre" />
+      </div>
+      
+      <div class="form-group">
+        <label for="recipient">Destinatario:</label>
+        <input type="text" id="recipient" name="recipient" required placeholder="¿Para quién es esta carta?" />
+      </div>
 
-    <label for="place">Lugar (opcional):</label>
-    <input type="text" id="place" name="place" />
+      <div class="form-group">
+        <label for="place">Lugar:</label>
+        <input type="text" id="place" name="place" placeholder="Ciudad, País (opcional)" />
+      </div>
 
-    <label for="date">Fecha:</label>
-    <input type="date" id="date" name="date" required />
+      <div class="form-group">
+        <label for="date">Fecha:</label>
+        <input type="date" id="date" name="date" required />
+      </div>
 
-    <label for="content">Contenido:</label>
-    <textarea id="content" name="content" rows="6" required></textarea>
+      <div class="form-group">
+        <label for="content">Contenido:</label>
+        <textarea id="content" name="content" rows="6" required placeholder="Escribe aquí tu mensaje especial..."></textarea>
+      </div>
 
-    <label for="signature">Firma (opcional):</label>
-    <input type="text" id="signature" name="signature" />
+      <div class="form-group">
+        <label for="signature">Firma:</label>
+        <input type="text" id="signature" name="signature" placeholder="Tu firma (opcional)" />
+      </div>
+      
+      <div class="form-group">
+        <label>¿Qué tanto te gusta esta carta?</label>
+        <div class="hearts-container">
+          <button type="button" class="heart-btn" data-value="1">❤️</button>
+          <button type="button" class="heart-btn" data-value="2">❤️</button>
+          <button type="button" class="heart-btn" data-value="3">❤️</button>
+          <button type="button" class="heart-btn" data-value="4">❤️</button>
+          <button type="button" class="heart-btn" data-value="5">❤️</button>
+        </div>
+      </div>
 
-    <button type="submit">Enviar 💌</button>
-  </form>
+      <button type="submit" id="submitBtn">Enviar carta 💌</button>
+    </form>
+    
+    <div class="letter-preview" id="letterPreview">
+      <div class="letter-header">
+        <span id="previewPlace"></span>
+        <span id="previewDate"></span>
+      </div>
+      
+      <p id="previewRecipient" style="font-weight: 600;"></p>
+      
+      <div class="letter-content" id="previewContent"></div>
+      
+      <div class="letter-signature" id="previewSignature"></div>
+    </div>
+    
+    <div class="success-message" id="successMessage">
+      ¡Tu carta ha sido enviada con éxito! 🎉
+    </div>
+  </div>
+  
+  <div class="confetti" id="confetti"></div>
+
+  <script>
+    // Initialize the date input to today's date
+    document.getElementById('date').valueAsDate = new Date();
+    
+    // Heart rating system
+    const heartBtns = document.querySelectorAll('.heart-btn');
+    
+    heartBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const value = parseInt(btn.dataset.value);
+        
+        heartBtns.forEach(heartBtn => {
+          const btnValue = parseInt(heartBtn.dataset.value);
+          if (btnValue <= value) {
+            heartBtn.classList.add('active');
+            heartBtn.style.color = '#d6336c';
+          } else {
+            heartBtn.classList.remove('active');
+            heartBtn.style.color = '#ccc';
+          }
+        });
+      });
+    });
+    
+    // Live preview functionality
+    const authorInput = document.getElementById('author');
+    const recipientInput = document.getElementById('recipient');
+    const placeInput = document.getElementById('place');
+    const dateInput = document.getElementById('date');
+    const contentInput = document.getElementById('content');
+    const signatureInput = document.getElementById('signature');
+    const letterPreview = document.getElementById('letterPreview');
+    
+    // Preview elements
+    const previewPlace = document.getElementById('previewPlace');
+    const previewDate = document.getElementById('previewDate');
+    const previewRecipient = document.getElementById('previewRecipient');
+    const previewContent = document.getElementById('previewContent');
+    const previewSignature = document.getElementById('previewSignature');
+    
+    // Update preview on input
+    function updatePreview() {
+      // Only show preview if at least content is filled
+      if (contentInput.value.trim() !== '') {
+        letterPreview.style.display = 'block';
+        
+        // Format the date
+        let formattedDate = '';
+        if (dateInput.value) {
+          const date = new Date(dateInput.value);
+          formattedDate = date.toLocaleDateString('es-ES', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+        }
+        
+        previewPlace.textContent = placeInput.value;
+        previewDate.textContent = formattedDate;
+        previewRecipient.textContent = recipientInput.value ? `Querido/a ${recipientInput.value}:` : '';
+        previewContent.textContent = contentInput.value;
+        previewSignature.textContent = signatureInput.value || (authorInput.value ? `Con cariño, ${authorInput.value}` : '');
+      } else {
+        letterPreview.style.display = 'none';
+      }
+    }
+    
+    // Add input event listeners
+    [authorInput, recipientInput, placeInput, dateInput, contentInput, signatureInput].forEach(input => {
+      input.addEventListener('input', updatePreview);
+    });
+    
+    // Generate confetti
+    function createConfetti() {
+      const confettiContainer = document.getElementById('confetti');
+      confettiContainer.style.display = 'block';
+      confettiContainer.innerHTML = '';
+      
+      const colors = ['#d6336c', '#ff83a7', '#ffb6c1', '#ffd1dc', '#ffffff'];
+      
+      // Create confetti pieces
+      for (let i = 0; i < 100; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.position = 'absolute';
+        confetti.style.left = Math.random() * 100 + 'vw';
+        confetti.style.top = -20 + 'px';
+        confetti.style.width = Math.random() * 10 + 5 + 'px';
+        confetti.style.height = Math.random() * 10 + 5 + 'px';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        confetti.style.opacity = Math.random() * 0.8 + 0.2;
+        
+        // Set animation properties
+        confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+        
+        confettiContainer.appendChild(confetti);
+      }
+      
+      // Add animation keyframes
+      const style = document.createElement('style');
+      style.innerHTML = `
+        @keyframes fall {
+          to {
+            transform: translateY(100vh) rotate(${Math.random() * 360}deg);
+          }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      // Remove confetti after animation
+      setTimeout(() => {
+        confettiContainer.style.display = 'none';
+      }, 5000);
+    }
+    
+    // Form submission handler
+    document.getElementById('letterForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const activeHearts = document.querySelectorAll('.heart-btn.active').length;
+      
+      // Normally you would send this data to a server
+      console.log('Carta enviada:', Object.fromEntries(formData), 'Rating:', activeHearts);
+      
+      // Show success message and confetti
+      document.getElementById('successMessage').style.display = 'block';
+      createConfetti();
+      
+      // Scroll to see the success message
+      document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+      
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        document.getElementById('successMessage').style.display = 'none';
+      }, 5000);
+    });
+    
+    // Initialize preview
+    updatePreview();
+  </script>
 </body>
 </html>
