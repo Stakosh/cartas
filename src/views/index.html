@@ -1,373 +1,222 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cartitas 💌</title>
   <style>
     :root {
-      --primary-color: #ff7730;
-      --primary-hover: #e05f1c;
-      --secondary-color: #1c7ed6;
-      --background: #fff7f0;
+      --primary-color: #ff6b81;
+      --primary-hover: #e85a70;
+      --secondary-color: #6a4c93;
+      --background: #fff0f5;
       --card-bg: #ffffff;
       --text: #333333;
-      --border: #ffd4b8;
-      --secondary-light: #e7f5ff;
-      --success: #37b24d;
+      --border: #fbb1bd;
+      --secondary-light: #f3e8ff;
+      --success: #51cf66;
     }
-    
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--background);
       color: var(--text);
-      line-height: 1.6;
-      padding: 2rem 1rem;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 2rem 1rem;
     }
-    
     .container {
       width: 100%;
       max-width: 600px;
-      background-color: var(--card-bg);
+      background: var(--card-bg);
       border-radius: 15px;
-      box-shadow: 0 10px 30px rgba(255, 119, 48, 0.15);
-      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(255,107,129,0.2);
       padding: 2rem;
       position: relative;
     }
-    
     .decoration {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 8px;
-      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--primary-color));
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     }
-    
     h1 {
       text-align: center;
       color: var(--primary-color);
       margin-bottom: 1.5rem;
       font-size: 2rem;
-      font-weight: 700;
     }
-    
     .emoji {
       font-size: 1.5rem;
       vertical-align: middle;
       margin-left: 0.5rem;
     }
-    
     .form-group {
       margin-bottom: 1.5rem;
     }
-    
     label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: 600;
-      color: var(--text);
       font-size: 0.95rem;
+      color: var(--text);
     }
-    
     input, textarea {
       width: 100%;
       padding: 0.75rem 1rem;
       border-radius: 8px;
       border: 2px solid var(--border);
+      background: rgba(255,240,245,0.7);
       transition: border-color 0.3s, box-shadow 0.3s;
       font-size: 1rem;
-      background-color: rgba(255, 247, 240, 0.5);
     }
-    
     input:focus, textarea:focus {
       outline: none;
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(255, 119, 48, 0.2);
+      box-shadow: 0 0 0 3px rgba(255,107,129,0.2);
     }
-    
     textarea {
       resize: vertical;
       min-height: 150px;
     }
-    
     button, .button {
-      display: block;
       width: 100%;
       padding: 1rem;
-      background-color: var(--primary-color);
+      background: var(--primary-color);
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-size: 1.1rem;
       font-weight: 600;
+      box-shadow: 0 4px 6px rgba(255,107,129,0.2);
       transition: background-color 0.3s, transform 0.2s;
-      box-shadow: 0 4px 6px rgba(255, 119, 48, 0.2);
-      text-decoration: none;
       text-align: center;
+      text-decoration: none;
     }
-    
     button:hover, .button:hover {
       background-color: var(--primary-hover);
       transform: translateY(-2px);
     }
-    
-    button:active, .button:active {
-      transform: translateY(0);
+    .hidden {
+      display: none;
     }
-    
-    .optional {
-      font-size: 0.8rem;
-      color: #888;
-      margin-left: 0.5rem;
-      font-weight: normal;
-    }
-    
-    /* Estilos específicos para la página de confirmación */
     .confirmation-container {
-      padding: 2.5rem 2rem;
       text-align: center;
+      padding: 2.5rem 2rem;
     }
-    
     .success-icon {
       width: 80px;
       height: 80px;
-      background-color: var(--success);
+      background: var(--success);
       border-radius: 50%;
       margin: 0 auto 1.5rem;
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
       font-size: 2.5rem;
-      box-shadow: 0 4px 8px rgba(55, 178, 77, 0.25);
     }
-    
-    .envelope-icon {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: var(--primary-color);
-    }
-    
-    .confirmation-message {
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      color: var(--text);
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
     .highlight {
       color: var(--primary-color);
       font-weight: 600;
     }
-    
-    .button-group {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-    
-    .secondary-button {
-      display: block;
-      width: 100%;
-      padding: 1rem;
-      background-color: var(--secondary-light);
-      color: var(--secondary-color);
-      border: 1px solid var(--secondary-color);
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      font-weight: 600;
-      transition: background-color 0.3s, transform 0.2s;
-      text-decoration: none;
+    .loading-message {
       text-align: center;
-    }
-    
-    .secondary-button:hover {
-      background-color: #d0ebff;
-      transform: translateY(-2px);
-    }
-    
-    .secondary-button:active {
-      transform: translateY(0);
-    }
-    
-    .confetti {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      opacity: 0;
-      animation: confetti-fall 3s ease-in-out forwards;
-    }
-    
-    @keyframes confetti-fall {
-      0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(600px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-    
-    /* Para ocultar/mostrar las diferentes vistas */
-    .hidden {
-      display: none;
-    }
-    
-    @media (max-width: 480px) {
-      .container {
-        padding: 1.5rem;
-      }
-      
-      h1 {
-        font-size: 1.75rem;
-      }
-      
-      .success-icon {
-        width: 70px;
-        height: 70px;
-        font-size: 2.2rem;
-      }
+      margin-top: 1rem;
+      color: var(--primary-color);
+      font-weight: 600;
     }
   </style>
   <script>
-    // Esta función se ejecutará cuando la página termine de cargar
-    document.addEventListener('DOMContentLoaded', function() {
-      // Manejador para el formulario
+    document.addEventListener('DOMContentLoaded', () => {
       const cartaForm = document.getElementById('carta-form');
-      if (cartaForm) {
-        cartaForm.addEventListener('submit', function(e) {
-          e.preventDefault(); // Prevenir el envío real del formulario
-          
-          // En un caso real, aquí iría el código para enviar los datos al servidor mediante fetch o XMLHttpRequest
-          // Por ahora, simplemente mostraremos la página de confirmación
-          document.getElementById('form-view').classList.add('hidden');
-          document.getElementById('confirmation-view').classList.remove('hidden');
-          
-          // Crear el efecto confeti
-          createConfetti();
-          
-          // Desplazarse al inicio de la página
-          window.scrollTo(0, 0);
-        });
-      }
-      
-      // Configurar el botón "Enviar otra carta"
-      const newCardButton = document.getElementById('new-card-button');
-      if (newCardButton) {
-        newCardButton.addEventListener('click', function(e) {
-          e.preventDefault();
-          document.getElementById('confirmation-view').classList.add('hidden');
-          document.getElementById('form-view').classList.remove('hidden');
-          
-          // Limpiar el formulario
-          if (cartaForm) {
-            cartaForm.reset();
+      const formView = document.getElementById('form-view');
+      const confirmationView = document.getElementById('confirmation-view');
+      const loadingMessage = document.createElement('div');
+      loadingMessage.className = 'loading-message';
+      loadingMessage.textContent = 'Enviando cartita... 💌';
+
+      cartaForm.addEventListener('submit', e => {
+        e.preventDefault();
+        formView.appendChild(loadingMessage);
+
+        const formData = new FormData(cartaForm);
+        fetch('/enviar', {
+          method: 'POST',
+          body: formData
+        })
+        .then(response => {
+          formView.removeChild(loadingMessage);
+          if (response.ok) {
+            formView.classList.add('hidden');
+            confirmationView.classList.remove('hidden');
+            window.scrollTo(0, 0);
+          } else {
+            alert('Error al enviar la carta.');
           }
-          
-          // Eliminar todos los confetis
-          const confettiElements = document.querySelectorAll('.confetti');
-          confettiElements.forEach(element => {
-            element.remove();
-          });
-          
-          // Desplazarse al inicio de la página
-          window.scrollTo(0, 0);
+        })
+        .catch(error => {
+          formView.removeChild(loadingMessage);
+          console.error('Error:', error);
+          alert('No se pudo enviar la carta.');
         });
-      }
+      });
+
+      document.getElementById('new-card-button').addEventListener('click', e => {
+        e.preventDefault();
+        confirmationView.classList.add('hidden');
+        formView.classList.remove('hidden');
+        cartaForm.reset();
+        window.scrollTo(0, 0);
+      });
     });
-    
-    // Función para crear el efecto confeti
-    function createConfetti() {
-      const colors = ['#ff7730', '#1c7ed6', '#ffd4b8', '#e7f5ff', '#ffec99'];
-      const confettiCount = 50;
-      const container = document.querySelector('.confirmation-container');
-      
-      for (let i = 0; i < confettiCount; i++) {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        confetti.style.left = Math.random() * 100 + '%';
-        confetti.style.animationDelay = Math.random() * 3 + 's';
-        confetti.style.width = Math.random() * 10 + 5 + 'px';
-        confetti.style.height = Math.random() * 10 + 5 + 'px';
-        container.appendChild(confetti);
-      }
-    }
   </script>
 </head>
+
 <body>
-  <!-- Vista del formulario -->
   <div id="form-view" class="container">
     <div class="decoration"></div>
     <h1>Escribe tu cartita <span class="emoji">💌</span></h1>
-    
     <form id="carta-form" action="/enviar" method="POST">
       <div class="form-group">
         <label for="author">Autor:</label>
-        <input type="text" id="author" name="author" required />
+        <input type="text" id="author" name="author" required>
       </div>
-      
       <div class="form-group">
-        <label for="place">Lugar <span class="optional">(opcional)</span>:</label>
-        <input type="text" id="place" name="place" />
+        <label for="place">Lugar (opcional):</label>
+        <input type="text" id="place" name="place">
       </div>
-      
       <div class="form-group">
         <label for="date">Fecha:</label>
-        <input type="date" id="date" name="date" required />
+        <input type="date" id="date" name="date" required>
       </div>
-      
       <div class="form-group">
         <label for="content">Contenido:</label>
         <textarea id="content" name="content" rows="6" required></textarea>
       </div>
-      
       <div class="form-group">
-        <label for="signature">Firma <span class="optional">(opcional)</span>:</label>
-        <input type="text" id="signature" name="signature" />
+        <label for="signature">Firma (opcional):</label>
+        <input type="text" id="signature" name="signature">
       </div>
-      
       <button type="submit">Enviar 💌</button>
     </form>
   </div>
-  
-  <!-- Vista de confirmación (inicialmente oculta) -->
+
   <div id="confirmation-view" class="container confirmation-container hidden">
     <div class="decoration"></div>
-    
     <div class="success-icon">✓</div>
-    
-    <div class="envelope-icon">💌</div>
-    
-    <h1>¡Cartita enviada con éxito!</h1>
-    
-    <p class="confirmation-message">
-      Tu mensaje ha sido enviado con cariño a su destino. Gracias por compartir a través de <span class="highlight">Cartitas</span>.
-    </p>
-    
-    <div class="button-group">
-      <a href="#" id="new-card-button" class="button">Enviar otra carta</a>
-      <a href="/inicio" class="secondary-button">Volver al inicio</a>
-    </div>
+    <h1>¡Cartita enviada!</h1>
+    <p>Gracias por usar <span class="highlight">Cartitas</span>.</p>
+    <a href="#" id="new-card-button" class="button">Enviar otra carta</a>
   </div>
 </body>
 </html>
