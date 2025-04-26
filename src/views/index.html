@@ -113,6 +113,11 @@
       text-align: center;
       padding: 2.5rem 2rem;
     }
+    .confirmation-container h1 {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
     .success-icon {
       width: 80px;
       height: 80px;
@@ -134,6 +139,11 @@
       margin-top: 1rem;
       color: var(--primary-color);
       font-weight: 600;
+    }
+    .button-group {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
     }
   </style>
   <script>
@@ -219,7 +229,9 @@
     <div class="success-icon">✓</div>
     <h1>¡Cartita enviada!</h1>
     <p>Gracias por usar <span class="highlight">Cartitas</span>.</p>
-    <a href="#" id="new-card-button" class="button">Enviar otra carta</a>
+    <div class="button-group">
+      <a href="#" id="new-card-button" class="button">Enviar otra carta</a>
+    </div>
   </div>
 </body>
 </html>
